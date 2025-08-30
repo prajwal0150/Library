@@ -1,11 +1,10 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
-import Icon from "react-native-vector-icons/FontAwesome"; // For user icon
-
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -39,28 +38,29 @@ const Login = () => {
         router.replace("/home/homepage");
       }
     } catch (error) {
-      setError(error.response.data.message);
+      if (error.response) {
+        setError(error.response.data.message || "Something went wrong on server.");
+      } else if (error.request) {
+        setError("No response from server. Check your API URL or network.");
+      } else {
+        setError("Error: " + error.message);
+      }
     }
   };
 
   return (
     <LinearGradient
-      colors={["#6286c6ff", "#3a4372ff"]} // Light background color
+      colors={["#6286c6ff", "#3a4372ff"]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
       className="flex-1 justify-center items-center p-5"
     >
       <View className="w-[420px] p-6 rounded-lg flex flex-col ">
-        
         <View className="flex justify-center items-center mb-4">
           <Icon name="user" size={50} color="white" />
         </View>
-
-        
         <Text className="text-center text-xl text-white mb-5">Login</Text>
-
         <View className="flex flex-col">
-        
           <View className="relative mb-4">
             <TextInput
               placeholder="Email"
@@ -74,8 +74,6 @@ const Login = () => {
               className="w-full h-12 pl-12 pr-4 rounded-full text-white text-base placeholder-white bg-transparent border border-white/20 outline-none focus:border-white"
             />
           </View>
-
-       
           <View className="relative mb-4">
             <TextInput
               placeholder="Password"
@@ -88,13 +86,9 @@ const Login = () => {
               className="w-full h-12 pl-12 pr-4 rounded-full text-white text-base placeholder-white bg-transparent border border-white/20 outline-none focus:border-white"
             />
           </View>
-
-       
           {error && <Text className="text-red-500 text-center mb-4">{error}</Text>}
-
           <View className="flex-row justify-between items-center text-[14.5px] mb-5">
             <View className="flex-row items-center">
-              
               <TouchableOpacity
                 onPress={() => setRememberMe((prev) => !prev)}
                 className="w-5 h-5 border border-white/50 rounded mr-2 justify-center items-center"
@@ -112,21 +106,16 @@ const Login = () => {
           <TouchableOpacity
             onPress={handleLogin}
             className="w-full h-12 bg-sky-25 border border-white rounded-full shadow-md mb-2"
-             
-                  style={{ justifyContent: "center", alignItems: "center" }}
-                  >
-                  <Text className="text-white text-center ">Login</Text>
-                  </TouchableOpacity>
-
-                 
+            style={{ justifyContent: "center", alignItems: "center" }}
+          >
+            <Text className="text-white text-center ">Login</Text>
+          </TouchableOpacity>
           <Text className="text-center text-sm text-white mt-5">
             Don't have an account?{" "}
             <TouchableOpacity onPress={() => router.push("/auth/register")}>
               <Text className="text-white font-semibold hover:underline">Register</Text>
             </TouchableOpacity>
           </Text>
-
-          
           <View className="mt-4 text-center">
             <Text className="text-white flex justify-center items-center ">Or login with</Text>
             <View className="flex-row justify-center items-center gap-5 mt-2">

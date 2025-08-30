@@ -11,7 +11,7 @@ const Dashboard = () => {
   const fetchBooks = async () => {
     try {
       const token = await AsyncStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/book/getAllBooks", {
+      const res = await axios.get("https://library-1-e1mi.onrender.com/book/getAllBooks", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBooks(Array.isArray(res.data.books) ? res.data.books : []);

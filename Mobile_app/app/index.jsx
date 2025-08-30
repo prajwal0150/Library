@@ -3,9 +3,11 @@ import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { View, ActivityIndicator } from "react-native";
 
 export default function Index() {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   const verifyToken = async () => {
     try {
@@ -16,30 +18,35 @@ export default function Index() {
         return;
       }
 
-      const response = await axios.get("https://library-1-e1mi.onrender.com", {
+      const response = await axios.get("https://library-1-e1mi.onrender.com/auth/login", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       if (response.status === 200) {
-        router.replace("/home/homepage"); 
+        router.replace("/home/homepage");
       } else {
-        router.replace("/auth/login"); 
+        router.replace("/auth/login");
       }
     } catch (error) {
-      console.error("Token verification failed:", error);
       await AsyncStorage.removeItem("token");
       await AsyncStorage.removeItem("user");
       router.replace("/auth/login");
-    } 
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     verifyToken();
   }, []);
 
-  
-    return (null);
+  if (loading) {
+    return (
+      <View className="flex-1 justify-center items-center bg-white">
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   }
 
-
-
+  return null;
+}
