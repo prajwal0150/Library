@@ -1,7 +1,7 @@
 [build]
   base = "library"
   command = "npm run build"
-  publish = "library/dist"
+  publish = "dist"
 
 [[redirects]]
   from = "/*"
