@@ -11,8 +11,8 @@ import Profile from './pages/Borrower/Profile';
 import { AuthProvider } from './context/AuthContext';
 import BorrowRecord from './pages/Librarian/BorrowRecord';
 import Books from './pages/Borrower/Books';
-import BorrowDashboard from './pages/borrower/Dashboard';
 import LibrarianDashboard from './pages/Librarian/Dashboard';
+import BorrowDashboard from '../pages/Borrower/Dashboard';
 
 const App = () => {
   return (
