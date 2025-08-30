@@ -30,7 +30,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post("https://library-r8vp.onrender.com/auth/login", {
+      const response = await axios.post("https://library-1-e1mi.onrender.com/auth/login", {
         email,
         password,
       });
@@ -54,7 +54,7 @@ const Login = () => {
     if (!token) return;
 
     try {
-      const response = await axios.get("https://library-r8vp.onrender.com/auth/login", {
+      const response = await axios.get("https://library-1-e1mi.onrender.com/auth/login", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

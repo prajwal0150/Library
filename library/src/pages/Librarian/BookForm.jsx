@@ -36,7 +36,7 @@ export default function BookForm({ setBooks, editBook, setEditBook, setModalForm
 
   const addBook = async (bookData) => {
     const token = localStorage.getItem("token");
-    const response = await axios.post("https://library-r8vp.onrender.com/book/addBook", bookData, {
+    const response = await axios.post("https://library-1-e1mi.onrender.com/book/addBook", bookData, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
@@ -45,7 +45,7 @@ export default function BookForm({ setBooks, editBook, setEditBook, setModalForm
   const updateBook = async (bookId, bookData) => {
     const token = localStorage.getItem("token");
     const response = await axios.put(
-      `https://library-r8vp.onrender.com/book/updateBook/${bookId}`,
+      `https://library-1-e1mi.onrender.com/book/updateBook/${bookId}`,
       bookData,
       { headers: { Authorization: `Bearer ${token}` } }
     );
