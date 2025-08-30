@@ -4,6 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 
+
+import lmsImage from '../../assets/img/lms.png';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -39,16 +42,11 @@ const Login = () => {
 
         alert("Login success");
         navigate("/home");
-        console.log(user);
       }
     } catch (error) {
       console.error("Login error:", error);
       alert(error.response?.data?.message || error.message || "Something went wrong");
     }
-
-    console.log('Username:', username);
-    console.log('Password:', password);
-    console.log('Remember me:', rememberMe);
   };
 
   const verifyToken = async () => {
@@ -78,11 +76,10 @@ const Login = () => {
   useEffect(() => {
     verifyToken();
   }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-pink-100 p-5">
-      <div className="flex  md:flex-row  max-w-5xl bg-gray-200 rounded-lg shadow-lg overflow-hidden gap-5">
-        
-       
+      <div className="flex md:flex-row max-w-5xl bg-gray-200 rounded-lg shadow-lg overflow-hidden gap-5">
         <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
           <div className="flex justify-center mb-4">
             <FaUser className="text-gray-800 text-5xl" />
@@ -121,7 +118,6 @@ const Login = () => {
             <button
               type="submit"
               className="w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 rounded-full transition-colors"
-              onClick={handleSubmit}
             >
               Login
             </button>
@@ -144,10 +140,9 @@ const Login = () => {
           </div>
         </div>
 
-      
         <div className="w-full md:w-1/2">
           <img
-            src="../img/lms.png"
+            src={lmsImage}
             alt="Library"
             className="w-full h-full object-cover"
           />
