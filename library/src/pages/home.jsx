@@ -10,7 +10,7 @@ const Home = () => {
 
      
       <div className="flex justify-between p-4 bg-gray-200">
-        <span className='font-bold tracking text-4xl'>L <span className='text-blue-500'>M</span> S</span>
+        <span className='font-semibold tracking text-4xl'>L <span className='text-blue-500 text-3xl'>M</span> S</span>
         <Right />
       </div>
     

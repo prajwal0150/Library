@@ -42,16 +42,14 @@ export default function Register() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-12">
           Register a New Account
         </h2>
 
-        {error && (
-          <p className="text-red-500 text-sm text-center mb-4">{error}</p>
-        )}
+        
 
         <form onSubmit={handleRegister} className="space-y-4">
-          {/* Name */}
+      
           <input
             type="text"
             placeholder="Username"
@@ -61,7 +59,7 @@ export default function Register() {
             className="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
-          {/* Email */}
+         
           <input
             type="email"
             placeholder="Email"
@@ -71,7 +69,7 @@ export default function Register() {
             className="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
-          {/* Password */}
+       
           <input
             type="password"
             placeholder="Password"
@@ -81,7 +79,7 @@ export default function Register() {
             className="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
-          {/* Role */}
+         
           <select
             value={role}
             onChange={(e) => setRole(e.target.value)}
@@ -90,8 +88,11 @@ export default function Register() {
             <option value="borrower">Borrower</option>
             <option value="librarian">Librarian</option>
           </select>
+          {error && (
+          <p className="text-red-500 text-sm text-center mb-4">{error}</p>
+        )}
 
-          {/* Register Button */}
+         
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"

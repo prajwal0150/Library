@@ -17,10 +17,10 @@ const Contact = () => {
   };
 
   return (
-    <div className=" w-[1230px] h-full flex items-center  p-2  ">
-      <div className="flex flex-col md:flex-row w-full w-full h-full shadow-lg rounded-lg overflow-hidden">
-        {/* left */}
-          <div className="w-full md:w-1/2 p-8 bg-white ml-20">
+    <div className=" w-[1230px] h-full flex items-center  p-2 bg-gray-100 ">
+      <div className="flex  md:flex-row w-full w-full h-full rounded-lg overflow-hidden">
+       
+          <div className="w-full md:w-1/2 p-8  ml-20">
             <h2 className="text-3xl font-serif text-gray-900">Contact Us</h2>
             <p className="mt-2 text-gray-600">Any question? 
               We would </p>
@@ -59,8 +59,7 @@ const Contact = () => {
 
           </div>
 
-          {/* Right Column - Form */}
-        <div className="w-full md:w-1/2 p-8 bg-white mr-20 mt-10">
+        <div className="w-full md:w-1/2 p-8 bg-white mr-20 mt-10 mb-10">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="flex space-x-4">
               <input

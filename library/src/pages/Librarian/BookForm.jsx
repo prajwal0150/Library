@@ -8,7 +8,6 @@ export default function BookForm({ setBooks, editBook, setEditBook, setModalForm
   const [quantity, setQuantity] = useState(1);
   const [errors, setErrors] = useState({});
 
-  // Prefill form if editing
   useEffect(() => {
     if (editBook) {
       setTitle(editBook.title || "");
@@ -25,7 +24,6 @@ export default function BookForm({ setBooks, editBook, setEditBook, setModalForm
     }
   }, [editBook]);
 
-  // Validate form
   const validate = () => {
     const newErrors = {};
     if (!title) newErrors.title = "Title is required";
@@ -36,7 +34,6 @@ export default function BookForm({ setBooks, editBook, setEditBook, setModalForm
     return Object.keys(newErrors).length === 0;
   };
 
-  // Add book
   const addBook = async (bookData) => {
     const token = localStorage.getItem("token");
     const response = await axios.post("http://localhost:5000/book/addBook", bookData, {
@@ -45,7 +42,6 @@ export default function BookForm({ setBooks, editBook, setEditBook, setModalForm
     return response.data;
   };
 
-  // Update book
   const updateBook = async (bookId, bookData) => {
     const token = localStorage.getItem("token");
     const response = await axios.put(
@@ -56,7 +52,6 @@ export default function BookForm({ setBooks, editBook, setEditBook, setModalForm
     return response.data;
   };
 
-  // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;

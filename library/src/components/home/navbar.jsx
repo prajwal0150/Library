@@ -4,14 +4,14 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
   const {user} = useContext(AuthContext);
-  
-  if(!user) return <span>No user defined</span>
-  
+
+  if(!user) return <span>please refresh the page</span>
+
   return (
     <div className="flex p-2 bg-gray-100 border-b border-gray-300 h-[650px] font-sans">
       <div className="flex flex-col gap-8 list-none m-1 p-2 text-lg w-[200px] border-r border-gray-600 rounded-md">
 
-        {/* Dashboard Link */}
+       
 
         {user.role === 'librarian' ? <NavLink
           to="/home/librarian/dashboard"
@@ -36,7 +36,6 @@ const Navbar = () => {
         </NavLink>}
       
 
-        {/* About Link */}
         <NavLink
           to="/home/borrower/bookDetail"
           className={({ isActive }) =>
@@ -48,7 +47,7 @@ const Navbar = () => {
           Books
         </NavLink>
 
-        {/* About Us Link */}
+       
         <NavLink
           to="/home/aboutus"
           className={({ isActive }) =>
@@ -60,7 +59,7 @@ const Navbar = () => {
           About Us
         </NavLink>
 
-        {/* Contact Link */}
+     
         <NavLink
           to="/home/contact"
           className={({ isActive }) =>

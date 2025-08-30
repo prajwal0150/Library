@@ -1,31 +1,31 @@
-import React, { useContext, useState } from 'react';
-import { FaUser, FaLock, FaGoogle, FaFacebook, FaTwitter } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
+import { FaUser, FaGoogle, FaFacebook, FaTwitter } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-
 
 const Login = () => {
   const [email, setEmail] = useState('');
-  const { login } = useContext(AuthContext)
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
-      alert("All field must be filled")
+      alert("All fields must be filled");
+      return;
     }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       alert("Invalid email address");
       return;
     }
+
     try {
       const response = await axios.post("http://localhost:5000/auth/login", {
         email,
@@ -39,20 +39,18 @@ const Login = () => {
 
         alert("Login success");
         navigate("/home");
-        console.log(user)
+        console.log(user);
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert(
-        error.response?.data?.message || error.message || "Something went wrong"
-      );
+      alert(error.response?.data?.message || error.message || "Something went wrong");
     }
-
 
     console.log('Username:', username);
     console.log('Password:', password);
     console.log('Remember me:', rememberMe);
   };
+
   const verifyToken = async () => {
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -80,103 +78,80 @@ const Login = () => {
   useEffect(() => {
     verifyToken();
   }, []);
-
-
-
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#dadaea] bg-cover bg-center">
-      <div
-        className="w-[420px] p-9 rounded-lg text-white flex flex-col"
-        style={{
-          backgroundImage:
-            "url('../../img/pexels-shiva-smyth-394854-1051431.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        {/* Top User Icon */}
-        <div className="flex justify-center items-center mb-2">
-          <FaUser className="text-white text-[50px]" />
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-pink-100 p-5">
+      <div className="flex  md:flex-row  max-w-5xl bg-gray-200 rounded-lg shadow-lg overflow-hidden gap-5">
+        
+       
+        <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
+          <div className="flex justify-center mb-4">
+            <FaUser className="text-gray-800 text-5xl" />
+          </div>
+          <h1 className="text-center text-2xl font-semibold mb-6 text-gray-800">Login</h1>
 
-        {/* Title */}
-        <h1 className="text-center text-xl mb-5">Login </h1>
-
-        <form onSubmit={handleSubmit} className="flex flex-col">
-          {/* Username Input */}
-          <div className="relative  ">
-            {/* <FaUser className="absolute left-78 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg" /> */}
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <input
               type="text"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
-              className="   w-full h-12 pl-12 pr-4 rounded-full text-white text-base placeholder-white bg-transparent border border-white/20 outline-none transition-all duration-300 focus:border-white"
+              className="w-full p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-400"
             />
-          </div>
-
-          <div className="relative my-5">
-
             <input
-              security='true'
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full h-12 pl-12 pr-4 rounded-full text-white text-base placeholder-white bg-transparent border border-white/20 outline-none transition-all duration-300 focus:border-white"
+              className="w-full p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-400"
             />
-          </div>
 
-          {/* Remember Me & Forgot Password */}
-          <div className="flex justify-between items-center text-[14.5px] mb-5">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                className="accent-white mr-1"
-              />
-              Remember me
-            </label>
-            <Link to="#" className="hover:underline">
-              Forgot Password?
-            </Link>
-          </div>
+            <div className="flex justify-between items-center text-sm">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="mr-2 accent-sky-500"
+                />
+                Remember me
+              </label>
+              <Link to="#" className="hover:underline text-sky-500">Forgot Password?</Link>
+            </div>
 
-          {/* Login Button */}
-          <button
-            type="submit"
-            className="w-full h-12 bg-sky-25 border text-white  rounded-full shadow-md hover:bg-blue-500 mb-2 transition-all duration-300"
-          >
-            Login
-          </button>
+            <button
+              type="submit"
+              className="w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 rounded-full transition-colors"
+              onClick={handleSubmit}
+            >
+              Login
+            </button>
+          </form>
 
-          {/* Register */}
-          <p className="text-center text-sm mt-5">
+          <p className="text-center mt-4 text-sm">
             Don't have an account?{' '}
-            <Link to="/register" className="text-white font-semibold hover:underline">
+            <Link to="/register" className="text-sky-500 font-semibold hover:underline">
               Register
             </Link>
           </p>
 
-          {/* Social Login */}
-          <div className="mt-4 text-center">
-            <p className="flex justify-center items-center">Or login with</p>
-            <div className="flex justify-center items-center gap-5 mt-2">
-              <button type="button" className="text-2xl">
-                <i className="text-[#34A853]"><FaGoogle onClick={() => window.open("https://accounts.google.com/signin")} /></i>
-              </button>
-              <button type="button" className="text-2xl">
-                <i className="text-[#4267B2]"><FaFacebook onClick={() => window.open("https://www.facebook.com/login")} /></i>
-              </button>
-              <button type="button" className="text-2xl">
-                <i className="text-[#1DA1F2]"><FaTwitter onClick={() => window.open("https://twitter.com/login")} /></i>
-              </button>
+          <div className="mt-6 text-center">
+            <p className="text-gray-600 mb-2">Or login with</p>
+            <div className="flex justify-center gap-5 text-2xl">
+              <FaGoogle className="text-[#34A853] cursor-pointer" onClick={() => window.open("https://accounts.google.com/signin")} />
+              <FaFacebook className="text-[#4267B2] cursor-pointer" onClick={() => window.open("https://www.facebook.com/login")} />
+              <FaTwitter className="text-[#1DA1F2] cursor-pointer" onClick={() => window.open("https://twitter.com/login")} />
             </div>
           </div>
-        </form>
+        </div>
+
+      
+        <div className="w-full md:w-1/2">
+          <img
+            src="../img/lms.png"
+            alt="Library"
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
     </div>
   );

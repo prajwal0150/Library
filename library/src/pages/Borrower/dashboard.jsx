@@ -43,7 +43,6 @@ const Dashboard = () => {
         { headers: { Authorization: `Bearer ${getAuthToken()}` } }
       );
       alert("Book borrowed successfully!");
-      // Reduce available count locally
       setBooks((prev) =>
         prev.map((b) =>
           b._id === bookId ? { ...b, available: b.available - 1 } : b
@@ -58,8 +57,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6 min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold mb-6 text-center">Library Dashboard</h1>
+    <div className="p-6 min-h-screen w-[83vw] bg-gray-100">
+      <h1 className="text-3xl font-serif  mb-6 text-center">Library Dashboard</h1>
 
       {!selectedBook ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

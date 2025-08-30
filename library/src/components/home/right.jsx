@@ -7,30 +7,32 @@ const Right = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [accessDenied, setAccessDenied] = useState(false);
+  const [profileClicked, setProfileClicked] = useState(false);
 
   const isProfileActive = window.location.pathname === "/home/borrower/profile";
 
   const handleProfileClick = () => {
+    setProfileClicked(!profileClicked);
+    
     if (user?.role === "borrower") {
       navigate("/home/borrower/profile");
     } else if (user?.role === "librarian") {
       setAccessDenied(true);
-      // Hide the message after 2 seconds
       setTimeout(() => setAccessDenied(false), 2000);
     }
   };
 
   return (
-    <div className="flex space-x-4 items-center p-2 relative">
+    <div className=" flex space-x-4 items-center p-2 relative">
       
       <FaUser
         className={`text-2xl text-gray-500 hover:text-gray-900 hover:scale-125 cursor-pointer ${
           isProfileActive ? "text-sky-600 scale-125" : ""
         }`}
         onClick={handleProfileClick}
+
       />
 
-     
       {accessDenied && (
         <span className="absolute top-10 right-0 text-red-500 font-semibold bg-white px-2 py-1 rounded shadow">
           Access Denied. It's for borrowers only.
@@ -49,5 +51,6 @@ const Right = () => {
     </div>
   );
 };
+
 
 export default Right;

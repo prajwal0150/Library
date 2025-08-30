@@ -12,14 +12,12 @@ export default function LibrarianDashboard() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // Redirect if user is not librarian
   useEffect(() => {
     if (user && user.role !== 'librarian') {
       navigate('/');
     }
   }, [user, navigate]);
 
-  // Fetch all books
   const fetchBooks = async () => {
     const token = localStorage.getItem('token');
     try {
@@ -37,10 +35,9 @@ export default function LibrarianDashboard() {
     if (user?.role === 'librarian') fetchBooks();
   }, [user]);
 
-  // ✅ Listen for book returns and update quantities automatically
   useEffect(() => {
     const handleBookReturn = (event) => {
-      const returnedBook = event.detail; // contains { _id, quantity, available }
+      const returnedBook = event.detail; 
       setBooks((prevBooks) =>
         prevBooks.map((book) =>
           book._id === returnedBook._id
@@ -56,7 +53,6 @@ export default function LibrarianDashboard() {
     };
   }, []);
 
-  // Delete a book
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm('Do you want to delete the book?');
     if (!confirmDelete) return;
@@ -149,7 +145,6 @@ export default function LibrarianDashboard() {
         </table>
       </div>
 
-      {/* Modal Form */}
       {modalForm && (
         <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white w-full max-w-lg p-6 rounded-lg relative">

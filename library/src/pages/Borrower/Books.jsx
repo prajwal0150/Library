@@ -10,14 +10,12 @@ const Books = () => {
 
   const getAuthToken = () => user?.token || localStorage.getItem("token");
 
-  // Redirect to login if no token
   useEffect(() => {
     if (!getAuthToken()) {
       navigate("/");
     }
   }, [user, navigate]);
 
-  // Fetch borrowed books
   useEffect(() => {
     const token = getAuthToken();
     if (!token) return;
@@ -29,7 +27,6 @@ const Books = () => {
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
-        // Filter out null or invalid book objects
         const borrowed = (res.data.borrows || []).filter(b => b && b.bookId);
         setBorrowedBooks(borrowed);
 
@@ -42,7 +39,6 @@ const Books = () => {
     fetchBorrowedBooks();
   }, [user]);
 
-  // Handle returning a book
   const handleReturn = async (borrowId) => {
     if (!borrowId) return;
 
@@ -55,7 +51,6 @@ const Books = () => {
 
       alert(res.data.message || "Book returned successfully!");
 
-      // Update frontend: remove returned book
       setBorrowedBooks(prev =>
         prev.map(b => b._id === borrowId ? { ...b, status: "returned", bookId: { ...b.bookId, available: b.bookId.available + 1 } } : b)
       );
@@ -67,7 +62,7 @@ const Books = () => {
 
   if (user?.role === "librarian") {
     return (
-      <span className="flex flex-col text-center justify-center text-red-500 bg-white-500 w-[900px] border-sky-500 shadow-md">
+      <span className="flex ml-100 justify-center items-center text-center text-red-500">
         Access Denied. It is for borrowers only.
       </span>
     );
@@ -75,7 +70,7 @@ const Books = () => {
 
   return (
     <div className="p-6 min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold mb-6 text-center">My Borrowed Books</h1>
+      <h1 className="text-3xl font-serif  mb-6 text-center">My Borrowed Books</h1>
 
       {borrowedBooks.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
