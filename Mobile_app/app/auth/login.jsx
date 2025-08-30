@@ -29,7 +29,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", formData);
+      const response = await axios.post("https://library-1-e1mi.onrender.com/auth/login", formData);
       if (response.status === 200) {
         const data = response.data;
         const token = data.token;
@@ -60,7 +60,7 @@ const Login = () => {
         <Text className="text-center text-xl text-white mb-5">Login</Text>
 
         <View className="flex flex-col">
-          {/* Email Input */}
+        
           <View className="relative mb-4">
             <TextInput
               placeholder="Email"
@@ -75,7 +75,7 @@ const Login = () => {
             />
           </View>
 
-          {/* Password Input */}
+       
           <View className="relative mb-4">
             <TextInput
               placeholder="Password"
@@ -89,10 +89,9 @@ const Login = () => {
             />
           </View>
 
-          {/* Error Message */}
+       
           {error && <Text className="text-red-500 text-center mb-4">{error}</Text>}
 
-          {/* Remember Me & Forgot Password */}
           <View className="flex-row justify-between items-center text-[14.5px] mb-5">
             <View className="flex-row items-center">
               
@@ -113,13 +112,13 @@ const Login = () => {
           <TouchableOpacity
             onPress={handleLogin}
             className="w-full h-12 bg-sky-25 border border-white rounded-full shadow-md mb-2"
-             // Simulate hover effect
+             
                   style={{ justifyContent: "center", alignItems: "center" }}
                   >
                   <Text className="text-white text-center ">Login</Text>
                   </TouchableOpacity>
 
-                  {/* Register */}
+                 
           <Text className="text-center text-sm text-white mt-5">
             Don't have an account?{" "}
             <TouchableOpacity onPress={() => router.push("/auth/register")}>
@@ -127,7 +126,7 @@ const Login = () => {
             </TouchableOpacity>
           </Text>
 
-          {/* Social Login */}
+          
           <View className="mt-4 text-center">
             <Text className="text-white flex justify-center items-center ">Or login with</Text>
             <View className="flex-row justify-center items-center gap-5 mt-2">

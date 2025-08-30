@@ -28,7 +28,7 @@ const register = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/auth/register", {
+      const response = await axios.post("https://library-1-e1mi.onrender.com/auth/register", {
         email,
         password,
         name,
