@@ -12,7 +12,8 @@ import { AuthProvider } from './context/AuthContext';
 import BorrowRecord from './pages/Librarian/BorrowRecord';
 import Books from './pages/Borrower/Books';
 import LibrarianDashboard from './pages/Librarian/Dashboard';
-import BorrowDashboard from '../pages/Borrower/Dashboard';
+import BorrowDashboard from './pages/Borrower/Dashboard';
+
 
 const App = () => {
   return (
