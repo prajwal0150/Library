@@ -7,12 +7,12 @@ import Contact from './pages/Contact';
 
 import Profile from './pages/Borrower/Profile';
 
-import LibrarianDashboard from './pages/Librarian/Dashboard';
 
 import { AuthProvider } from './context/AuthContext';
-import BorrowDashboard from './pages/borrower/Dashboard';
 import BorrowRecord from './pages/Librarian/BorrowRecord';
 import Books from './pages/Borrower/Books';
+import BorrowDashboard from './pages/borrower/Dashboard';
+import LibrarianDashboard from './pages/Librarian/Dashboard';
 
 const App = () => {
   return (

@@ -3,7 +3,7 @@ import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
+const BorrowDashboard = () => {
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const { user } = useContext(AuthContext);
@@ -113,4 +113,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default BorrowDashboard;
