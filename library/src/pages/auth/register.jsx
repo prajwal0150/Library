@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext"; // Corrected path
+import { AuthContext } from "../../context/AuthContext"; 
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -16,7 +16,7 @@ export default function Register() {
     e.preventDefault();
     setError(null);
 
-    // Basic validation
+    
     if (!name || !email || !password) {
       setError("All fields are required");
       return;
@@ -29,9 +29,9 @@ export default function Register() {
     }
 
     try {
-      await register(email, password, name, role); // AuthContext register
+      await register(email, password, name, role); 
       alert("Registration successful! Please login now.");
-      navigate("/"); // redirect to login page
+      navigate("/"); 
     } catch (err) {
       setError(
         err.response?.data?.message || err.message || "Registration failed "

@@ -58,7 +58,7 @@ const Profile = () => {
     <div className="fixed inset-0 flex justify-end items-center  bg-opacity-50 z-50 p-4">
       <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-lg flex flex-col items-center relative">
         
-        {/* Avatar */}
+        
         <div className="w-24 h-24 mb-4">
           <img
             src={user?.avatar || "https://i.pravatar.cc/300"}
@@ -67,15 +67,15 @@ const Profile = () => {
           />
         </div>
 
-        {/* User Name */}
+      
         <h2 className="text-xl font-semibold mb-6 text-gray-800 text-center">
           {user?.name || "User"}
         </h2>
 
-        {/* Error Message */}
+        
         {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
 
-        {/* Form */}
+      
         <form onSubmit={handleUpdate} className="w-full space-y-4">
           <input
             type="text"

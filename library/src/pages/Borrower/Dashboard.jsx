@@ -21,7 +21,7 @@ const BorrowDashboard = () => {
     const fetchBooks = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/book/getAllBooks",
+          "https://library-r8vp.onrender.com/book/getAllBooks",
           { headers: { Authorization: `Bearer ${getAuthToken()}` } }
         );
 
@@ -38,7 +38,7 @@ const BorrowDashboard = () => {
   const handleBorrow = async (bookId) => {
     try {
       await axios.post(
-        "http://localhost:5000/borrow/take",
+        "https://library-r8vp.onrender.com/borrow/take",
         { bookId },
         { headers: { Authorization: `Bearer ${getAuthToken()}` } }
       );

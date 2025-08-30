@@ -17,7 +17,7 @@ const BorrowRecord = () => {
 
   const fetchBorrows = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/borrow/records`, {
+      const res = await axios.get(`https://library-r8vp.onrender.com/borrow/records`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setBorrows(Array.isArray(res.data.borrows) ? res.data.borrows : []);

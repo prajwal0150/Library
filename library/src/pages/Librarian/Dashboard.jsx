@@ -21,7 +21,7 @@ export default function LibrarianDashboard() {
   const fetchBooks = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.get('http://localhost:5000/book/getAllBooks', {
+      const res = await axios.get('https://library-r8vp.onrender.com/book/getAllBooks', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBooks(Array.isArray(res.data.books) ? res.data.books : []);
@@ -59,7 +59,7 @@ export default function LibrarianDashboard() {
 
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:5000/book/delete/${id}`, {
+      await axios.delete(`https://library-r8vp.onrender.com/book/delete/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBooks((prev) => prev.filter((book) => book._id !== id));
