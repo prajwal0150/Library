@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
  
   const login = async (email, password) => {
     try {
-      const res = await axios.post(`http://localhost:5000/auth/login`, { email, password });
+      const res = await axios.post("https://library-r8vp.onrender.com/auth/login", { email, password });
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
       axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (email, password, name, role) => {
     try {
-      const res = await axios.post("http://localhost:5000/auth/register", { email, password, name, role });
+      const res = await axios.post("https://library-r8vp.onrender.com/auth/register", { email, password, name, role });
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
       axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
