@@ -20,18 +20,16 @@ app.get("/", authToken, (req, res) => {
   res.status(200).json({ message: "Token verified successfully!" });
 });
 
-// Authentication routes
+
 app.post("/auth/login", Loginuser);
 app.post("/auth/register", Register);
-
-// Books routes
 app.post("/book/addBook",authToken, Addbook);
 app.get("/book/getAllBooks", authToken, getAllBooks);
 app.get("/book/getBook/:id", authToken, getBookById);
 app.delete("/book/delete/:id", authToken, checkRole(["librarian"]), deleteBook);
 app.put("/book/updateBook/:id",authToken,checkRole(["librarian"]),BookUpdate)
 
-// Borrow routes
+
 app.post("/borrow/take", authToken, borrowBook);
 app.post("/borrow/return", authToken, bookReturn);
 app.get("/borrow/records", authToken,  borrowRecord)

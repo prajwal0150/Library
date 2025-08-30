@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 
 const bookSchema = new Schema(
   {
-    title: { type: String, required: true },  // fixed spelling from "tittle"
+    title: { type: String, required: true },  
     author: { type: String, required: true },
     isbn: { type: String, required: true, unique: true },
     quantity: { type: Number, min: 1 },

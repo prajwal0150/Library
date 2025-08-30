@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 
-// Login
 export async function Loginuser(req, res) {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -41,16 +40,14 @@ export async function Loginuser(req, res) {
     }
 }
 
-// Register
+
 export async function Register(req, res) {
     console.log("i am here")
     const { email, password, name, role } = req.body;
     if (!email || !password || !name) {
         return res.status(400).json({ message: 'All fields are required.' });
     }
-    // if (!/^[a-zA-Z\s]+$/.test(name)) {
-    //     return res.status(400).json({ message: 'Name cannot contain numbers.' });
-    // }
+    
     if (password.length < 6) {
         return res.status(400).json({ message: 'Password must be at least 6 characters.' });
     }

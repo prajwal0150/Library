@@ -9,7 +9,7 @@ export async function borrowBook(req, res) {
     if (!book) return res.status(404).json({ message: "Book not found" });
     if (book.available <= 0) return res.status(400).json({ message: "No copies available" });
 
-    // Create borrow record
+
     const borrowRecord = await borrowModel.create({
       bookId: book._id,
       userId,
@@ -17,7 +17,6 @@ export async function borrowBook(req, res) {
       borrowDate: new Date()
     });
 
-    // Decrease available copies
     book.available -= 1;
     await book.save();
 
@@ -29,7 +28,7 @@ export async function borrowBook(req, res) {
 }
 
 
-// Return a borrowed book
+
 export async function bookReturn(req, res) {
   const { borrowId } = req.body;
   try {
@@ -45,7 +44,7 @@ export async function bookReturn(req, res) {
     borrowRecord.status = "returned";
     await borrowRecord.save();
 
-    // Increase available copies
+ 
     const book = await bookModel.findById(borrowRecord.bookId);
     if (book) {
       book.available += 1;
@@ -59,7 +58,7 @@ export async function bookReturn(req, res) {
   }
 }
 
-// Get all borrow records (for librarian)
+
 export async function borrowRecord(req, res) {
   try {
     const borrows = await borrowModel

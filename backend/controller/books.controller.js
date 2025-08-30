@@ -1,6 +1,6 @@
 import bookModel from '../model/Book.js';
 
-// Add a new book
+
 export async function Addbook(req, res) {
     const { title, author, isbn, quantity } = req.body;
     if (!title || !author || !isbn || !quantity) {
@@ -32,7 +32,7 @@ export async function Addbook(req, res) {
     }
 }
 
-// Get all books
+
 export async function getAllBooks(req, res) {
     try {
         const books = await bookModel.find();
@@ -43,7 +43,7 @@ export async function getAllBooks(req, res) {
     }
 }
 
-// Get book by ID
+
 export async function getBookById(req, res) {
     try {
         const id = req.params.id;
@@ -58,7 +58,7 @@ export async function getBookById(req, res) {
     }
 }
 
-// Update book by ID
+
 export async function BookUpdate(req, res) {
     const { title, author, isbn, quantity } = req.body;
     if (!title || !author || !isbn || !quantity) {
@@ -84,7 +84,7 @@ export async function BookUpdate(req, res) {
         book.author = author;
         book.isbn = isbn;
         book.quantity = quantity;
-        book.available = quantity; // Reset available to quantity on update
+        book.available = quantity; 
         await book.save();
         return res.status(200).json({ message: 'Book updated successfully.', book });
     } catch (error) {
@@ -93,7 +93,7 @@ export async function BookUpdate(req, res) {
     }
 }
 
-// Delete book by ID
+
 export async function deleteBook(req, res) {
     try {
         const id = req.params.id;
