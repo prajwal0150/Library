@@ -11,10 +11,29 @@ import { bookReturn, borrowBook, borrowRecord } from "./controller/borrow.contro
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT||5000;
+const allowedOrigins = [
+  "http://localhost:5173",           
+  "http://localhost:8081",             
+  "https://library-2-aa70.onrender.com" 
+];
 
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); 
+      if (!allowedOrigins.includes(origin)) {
+        return callback(
+          new Error("CORS policy does not allow access from this origin."),
+          false
+        );
+      }
+      return callback(null, true);
+    },
+    credentials: true, 
+  })
+);
 
 app.get("/", authToken, (req, res) => {
   res.status(200).json({ message: "Token verified successfully!" });
