@@ -19,17 +19,20 @@ export default function LibrarianDashboard() {
   }, [user, navigate]);
 
   const fetchBooks = async () => {
-    const token = localStorage.getItem('token');
-    try {
-      const res = await axios.get('hhttps://library-1-e1mi.onrender.com/book/getAllBooks', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setBooks(Array.isArray(res.data.books) ? res.data.books : []);
-    } catch (err) {
-      console.error('Error fetching books:', err);
-      setBooks([]);
-    }
-  };
+      try {
+        const res = await axios.get(
+          "https://library-1-e1mi.onrender.com/book/getAllBooks",
+          { headers: { Authorization: `Bearer ${getAuthToken()}` } }
+        );
+
+        const booksData = Array.isArray(res.data) ? res.data : res.data.books || [];
+        setBooks(booksData);
+
+      } catch (error) {
+        console.error("Error fetching books:", error);
+      }
+    };
+    fetchBooks();
 
   useEffect(() => {
     if (user?.role === 'librarian') fetchBooks();
