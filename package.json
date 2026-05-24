@@ -1,0 +1,10 @@
+{
+  "name": "library-system-root",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm --prefix library run build",
+    "dev": "npm --prefix library run dev",
+    "lint": "npm --prefix library run lint"
+  }
+}
