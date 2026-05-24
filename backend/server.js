@@ -14,7 +14,8 @@ const PORT = process.env.PORT||5000;
 const allowedOrigins = [
   "http://localhost:5173",           
   "http://localhost:8081",             
-  "https://library-2-aa70.onrender.com" 
+  "https://library-2-aa70.onrender.com",
+  "https://library-managmentsystem245.vercel.app"
 ];
 
 app.use(morgan("dev"));
