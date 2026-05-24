@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity, ScrollView } from "react-native";
-import axios from "axios";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import api from "../../lib/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -11,7 +11,7 @@ const Dashboard = () => {
   const fetchBooks = async () => {
     try {
       const token = await AsyncStorage.getItem("token");
-      const res = await axios.get("https://library-1-e1mi.onrender.com/book/getAllBooks", {
+      const res = await api.get("/book/getAllBooks", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBooks(Array.isArray(res.data.books) ? res.data.books : []);

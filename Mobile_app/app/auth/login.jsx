@@ -1,6 +1,6 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../lib/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
@@ -28,7 +28,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post("https://library-1-e1mi.onrender.com/auth/login", formData);
+      const response = await api.post("/auth/login", formData);
       if (response.status === 200) {
         const data = response.data;
         const token = data.token;
@@ -111,7 +111,7 @@ const Login = () => {
             <Text className="text-white text-center ">Login</Text>
           </TouchableOpacity>
           <Text className="text-center text-sm text-white mt-5">
-            Don't have an account?{" "}
+            Don{"'"}t have an account?{" "}
             <TouchableOpacity onPress={() => router.push("/auth/register")}>
               <Text className="text-white font-semibold hover:underline">Register</Text>
             </TouchableOpacity>

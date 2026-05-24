@@ -1,10 +1,9 @@
 import { View, Text, TextInput, TouchableOpacity, Picker } from "react-native";
 import React, { useState } from "react";
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import api from "../../lib/api";
 import { useRouter } from "expo-router";
 
-const register = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -28,7 +27,7 @@ const register = () => {
     }
 
     try {
-      const response = await axios.post("https://library-1-e1mi.onrender.com/auth/register", {
+      const response = await api.post("/auth/register", {
         email,
         password,
         name,
@@ -36,9 +35,6 @@ const register = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        const { token, user } = response.data; 
-        await AsyncStorage.setItem("token", token);
-        await AsyncStorage.setItem("user", JSON.stringify(user));
         alert("Registration successful! Please login now.");
         router.replace("/auth/login"); 
       }
@@ -123,4 +119,4 @@ const register = () => {
   );
 };
 
-export default register;
+export default Register;
