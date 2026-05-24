@@ -29,14 +29,9 @@ export default function Register() {
     }
 
     try {
-      const createdUser = await register(email, password, name, role);
+      await register(email, password, name, role);
       alert("Registration successful! Please login now.");
-      navigate(
-        createdUser?.user?.role === 'librarian'
-          ? '/home/librarian/dashboard'
-          : '/home/borrower/dashboard',
-        { replace: true }
-      );
+      navigate("/", { replace: true });
     } catch (err) {
       setError(err.message || "Registration failed");
     }

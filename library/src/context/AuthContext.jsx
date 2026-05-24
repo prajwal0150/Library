@@ -34,10 +34,6 @@ export const AuthProvider = ({ children }) => {
   const register = async (email, password, name, role) => {
     try {
       const res = await api.post('/auth/register', { email, password, name, role });
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
-      api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-      setUser(res.data.user);
       return res.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Registration failed');
