@@ -12,6 +12,8 @@ export default function LibrarianDashboard() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const getAuthToken = () => localStorage.getItem('token');
+
   useEffect(() => {
     if (user && user.role !== 'librarian') {
       navigate('/');
@@ -31,7 +33,6 @@ export default function LibrarianDashboard() {
         console.error("Error fetching books:", error);
       }
     };
-    fetchBooks();
 
   useEffect(() => {
     if (user?.role === 'librarian') fetchBooks();

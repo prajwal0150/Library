@@ -61,12 +61,12 @@ export default function BookForm({ setBooks, editBook, setEditBook, setModalForm
       if (editBook) {
         const updatedBook = await updateBook(editBook._id, bookData);
         setBooks((prev) =>
-          prev.map((b) => (b._id === editBook._id ? updatedBook : b))
+          prev.map((b) => (b._id === editBook._id ? updatedBook.book : b))
         );
         alert("Book updated successfully!");
       } else {
         const newBook = await addBook(bookData);
-        setBooks((prev) => [...prev, newBook]);
+        setBooks((prev) => [...prev, newBook.book]);
         alert("Book added successfully!");
       }
 
