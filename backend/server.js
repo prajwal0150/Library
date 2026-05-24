@@ -5,7 +5,7 @@ import cors from "cors";
 import morgan from "morgan";
 import { authToken, checkRole } from "./middleware/auth.js";
 import { Addbook, BookUpdate, deleteBook, getAllBooks, getBookById } from "./controller/books.controller.js";
-import { Loginuser, Register } from "./controller/auth.controller.js";
+import { Loginuser, Register, UpdateUser } from "./controller/auth.controller.js";
 import { bookReturn, borrowBook, borrowRecord } from "./controller/borrow.controller.js";
 
 dotenv.config();
@@ -42,6 +42,7 @@ app.get("/", authToken, (req, res) => {
 
 app.post("/auth/login", Loginuser);
 app.post("/auth/register", Register);
+app.put("/auth/update", authToken, UpdateUser);
 app.post("/book/addBook",authToken, Addbook);
 app.get("/book/getAllBooks", authToken, getAllBooks);
 app.get("/book/getBook/:id", authToken, getBookById);

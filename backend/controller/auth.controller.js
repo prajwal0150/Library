@@ -30,8 +30,7 @@ export async function Loginuser(req, res) {
                 id: user._id,
                 email: user.email,
                 name: user.name,
-                role: user.role,
-                password:user.password
+                role: user.role
             }
         });
     } catch (error) {
@@ -79,6 +78,56 @@ export async function Register(req, res) {
         });
     } catch (error) {
         console.error('Register Error:', error.message);
+        return res.status(500).json({ message: 'Internal server error.' });
+    }
+}
+
+export async function UpdateUser(req, res) {
+    const { name, email, password } = req.body;
+    const userId = req.user?.id;
+
+    if (!userId) {
+        return res.status(401).json({ message: 'Unauthorized.' });
+    }
+
+    if (!name || !email) {
+        return res.status(400).json({ message: 'Name and email are required.' });
+    }
+
+    try {
+        const existingUser = await User.findOne({ email, _id: { $ne: userId } });
+        if (existingUser) {
+            return res.status(409).json({ message: 'Email already exists.' });
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        user.name = name;
+        user.email = email;
+
+        if (password) {
+            if (password.length < 6) {
+                return res.status(400).json({ message: 'Password must be at least 6 characters.' });
+            }
+            user.password = await bcrypt.hash(password, 10);
+        }
+
+        await user.save();
+
+        return res.status(200).json({
+            message: 'Profile updated successfully.',
+            user: {
+                id: user._id,
+                email: user.email,
+                name: user.name,
+                role: user.role,
+            },
+        });
+    } catch (error) {
+        console.error('Update User Error:', error.message);
         return res.status(500).json({ message: 'Internal server error.' });
     }
 }
