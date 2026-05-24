@@ -29,13 +29,16 @@ export default function Register() {
     }
 
     try {
-      await register(email, password, name, role); 
+      const createdUser = await register(email, password, name, role);
       alert("Registration successful! Please login now.");
-      navigate("/"); 
-    } catch (err) {
-      setError(
-        err.response?.data?.message || err.message || "Registration failed "
+      navigate(
+        createdUser?.user?.role === 'librarian'
+          ? '/home/librarian/dashboard'
+          : '/home/borrower/dashboard',
+        { replace: true }
       );
+    } catch (err) {
+      setError(err.message || "Registration failed");
     }
   };
 

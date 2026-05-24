@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { FaUser, FaGoogle, FaFacebook, FaTwitter } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 
 
@@ -14,6 +13,20 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+
+    if (token && storedUser?.role) {
+      navigate(
+        storedUser.role === 'librarian'
+          ? '/home/librarian/dashboard'
+          : '/home/borrower/dashboard',
+        { replace: true }
+      );
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,52 +43,19 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post("https://library-1-e1mi.onrender.com/auth/login", {
-        email,
-        password,
-      });
-
-      if (response.status === 200) {
-        const { token, user } = response.data;
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
-
-        alert("Login success");
-        navigate("/home");
-      }
+      const { user } = await login(email, password);
+      alert("Login success");
+      navigate(
+        user?.role === 'librarian'
+          ? '/home/librarian/dashboard'
+          : '/home/borrower/dashboard',
+        { replace: true }
+      );
     } catch (error) {
       console.error("Login error:", error);
-      alert(error.response?.data?.message || error.message || "Something went wrong");
+      alert(error.message || "Something went wrong");
     }
   };
-
-  const verifyToken = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-
-    try {
-      const response = await axios.get("https://library-1-e1mi.onrender.com/auth/login", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.status === 200) {
-        navigate("/home");
-      }
-    } catch (error) {
-      console.error("Token verification failed:", error);
-      if (error.response?.status === 404 || error.response?.status === 401) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-      }
-    }
-    login();
-  };
-
-  useEffect(() => {
-    verifyToken();
-  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-pink-100 p-5">

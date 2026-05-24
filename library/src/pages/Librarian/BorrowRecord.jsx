@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import api from '../../lib/api';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ const BorrowRecord = () => {
 
   const fetchBorrows = async () => {
     try {
-      const res = await axios.get(`https://library-1-e1mi.onrender.com/borrow/records`, {
+      const res = await api.get('/borrow/records', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setBorrows(Array.isArray(res.data.borrows) ? res.data.borrows : []);

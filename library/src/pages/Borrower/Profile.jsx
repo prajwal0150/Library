@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../lib/api";
 
 const Profile = () => {
   const { user, logout } = useContext(AuthContext);
@@ -34,15 +34,15 @@ const Profile = () => {
       return;
     }
 
-    if (name === user.name && email === user.email && password === user.password) {
+    if (name === user.name && email === user.email && !password) {
       setError("No changes detected");
       return;
     }
 
     try {
-      await axios.put(`${process.env.REACT_APP_API_URL}/auth/update`, { name, email, password });
+      await api.put("/auth/update", { name, email, password });
       alert("Profile updated");
-      const updatedUser = { ...user, name, email, password };
+      const updatedUser = { ...user, name, email };
       localStorage.setItem("user", JSON.stringify(updatedUser));
       window.location.reload();
     } catch (error) {

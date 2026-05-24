@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import api from "../../lib/api";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -22,10 +22,9 @@ const Books = () => {
 
     const fetchBorrowedBooks = async () => {
       try {
-        const res = await axios.get(
-          "https://library-1-e1mi.onrender.com/borrow/records",
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        const res = await api.get("/borrow/records", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
         const borrowed = (res.data.borrows || []).filter(b => b && b.bookId);
         setBorrowedBooks(borrowed);
@@ -43,8 +42,8 @@ const Books = () => {
     if (!borrowId) return;
 
     try {
-      const res = await axios.post(
-        "https://library-1-e1mi.onrender.com/borrow/return",
+      const res = await api.post(
+        "/borrow/return",
         { borrowId },
         { headers: { Authorization: `Bearer ${getAuthToken()}` } }
       );

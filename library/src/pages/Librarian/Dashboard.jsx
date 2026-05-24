@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import api from '../../lib/api';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import BookForm from './BookForm';
@@ -20,10 +20,9 @@ export default function LibrarianDashboard() {
 
   const fetchBooks = async () => {
       try {
-        const res = await axios.get(
-          "https://library-1-e1mi.onrender.com/book/getAllBooks",
-          { headers: { Authorization: `Bearer ${getAuthToken()}` } }
-        );
+        const res = await api.get('/book/getAllBooks', {
+          headers: { Authorization: `Bearer ${getAuthToken()}` },
+        });
 
         const booksData = Array.isArray(res.data) ? res.data : res.data.books || [];
         setBooks(booksData);
@@ -62,7 +61,7 @@ export default function LibrarianDashboard() {
 
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`https://library-1-e1mi.onrender.com/book/delete/${id}`, {
+      await api.delete(`/book/delete/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBooks((prev) => prev.filter((book) => book._id !== id));

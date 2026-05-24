@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/auth/login';
 import Register from './pages/auth/register';
 import Home from './pages/home';
@@ -16,6 +16,17 @@ import BorrowDashboard from './pages/Borrower/Dashboard';
 
 
 const App = () => {
+  const getHomeRoute = () => {
+    try {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      return storedUser?.role === 'librarian'
+        ? '/home/librarian/dashboard'
+        : '/home/borrower/dashboard';
+    } catch {
+      return '/';
+    }
+  };
+
   return (
     <AuthProvider>
       <Routes>
@@ -24,6 +35,7 @@ const App = () => {
 
        
         <Route path="/home" element={<Home />}>
+          <Route index element={<Navigate to={getHomeRoute()} replace />} />
           <Route path="/home/borrower/dashboard" element={<BorrowDashboard allowedRoles={['borrower']} />} />
           <Route path="/home/borrower/bookDetail/" element={<Books allowedRoles={['borrower']} />} />
           <Route path="/home/borrower/profile" element={<Profile />} />
