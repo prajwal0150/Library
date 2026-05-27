@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { FaUser, FaGoogle, FaFacebook, FaTwitter } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import api from '../../lib/api';
 
 
 import lmsImage from '../../assets/img/lms.png';
@@ -27,6 +28,11 @@ const Login = () => {
       );
     }
   }, [navigate]);
+
+  useEffect(() => {
+    // Warm up Render backend while user is filling login form.
+    api.get('/health').catch(() => {});
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
