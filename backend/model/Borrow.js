@@ -9,6 +9,8 @@ const borrowSchema = new Schema({
   status: { type: String, default: 'borrowed' }
 }, { timestamps: true });
 
+borrowSchema.index({ userId: 1, createdAt: -1 });
+
 const Borrow = model('Borrow', borrowSchema);
 
 export default Borrow;

@@ -35,7 +35,7 @@ export async function Addbook(req, res) {
 
 export async function getAllBooks(req, res) {
     try {
-        const books = await bookModel.find();
+        const books = await bookModel.find().sort({ createdAt: -1 }).lean();
         return res.status(200).json({ message: 'Books found.', books });
     } catch (error) {
         console.error('GetAllBooks Error:', error.message);
