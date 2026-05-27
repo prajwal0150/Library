@@ -18,23 +18,32 @@ const allowedOrigins = [
   "https://library-managmentsystem245.vercel.app"
 ];
 
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (!allowedOrigins.includes(origin)) {
+      return callback(
+        new Error("CORS policy does not allow access from this origin."),
+        false
+      );
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  maxAge: 600,
+  optionsSuccessStatus: 204,
+};
+
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true); 
-      if (!allowedOrigins.includes(origin)) {
-        return callback(
-          new Error("CORS policy does not allow access from this origin."),
-          false
-        );
-      }
-      return callback(null, true);
-    },
-    credentials: true, 
-  })
-);
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
+
+app.get("/health", (_req, res) => {
+  res.status(200).json({ ok: true });
+});
 
 app.get("/", authToken, (req, res) => {
   res.status(200).json({ message: "Token verified successfully!" });

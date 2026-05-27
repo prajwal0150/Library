@@ -61,10 +61,14 @@ export async function bookReturn(req, res) {
 
 export async function borrowRecord(req, res) {
   try {
+    const query = req.user?.role === 'librarian' ? {} : { userId: req.user.id };
+
     const borrows = await borrowModel
-      .find()
+      .find(query)
       .populate('userId', 'name email')
-      .populate('bookId', 'title author');
+      .populate('bookId', 'title author available')
+      .sort({ createdAt: -1 })
+      .lean();
     return res.status(200).json({ message: 'Borrow records fetched successfully.', borrows });
   } catch (error) {
     console.error('BorrowRecord Error:', error.message);
