@@ -9,7 +9,7 @@ import {
   FaEnvelope,
   FaHouse,
   FaLayerGroup,
-  FaUserCircle,
+  FaCircleUser,
 } from "react-icons/fa6";
 import api from "../../lib/api";
 import { AuthContext } from "../../context/AuthContext";
@@ -87,7 +87,7 @@ const Navbar = () => {
   const navItems = [
     { to: "/home/borrower/dashboard", label: "Dashboard", icon: FaHouse },
     { to: "/home/borrower/bookDetail", label: "Browse Books", icon: FaBookOpen },
-    { to: "/home/borrower/profile", label: "My Profile", icon: FaUserCircle },
+    { to: "/home/borrower/profile", label: "My Profile", icon: FaCircleUser },
     { to: "/home/aboutus", label: "About Us", icon: FaLayerGroup },
     { to: "/home/contact", label: "Contact Us", icon: FaEnvelope },
   ];

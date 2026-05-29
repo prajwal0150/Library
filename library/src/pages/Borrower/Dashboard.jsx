@@ -8,11 +8,11 @@ import {
   FaChevronRight,
   FaCircle,
   FaFilter,
-  FaSearch,
+  FaMagnifyingGlass,
   FaSpinner,
   FaStar,
   FaTag,
-  FaTimes,
+  FaXmark,
 } from "react-icons/fa6";
 
 const CATEGORY_RULES = [
@@ -207,7 +207,7 @@ const BorrowDashboard = () => {
 
           <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center lg:w-auto lg:justify-end">
             <div className="flex w-full items-center gap-3 rounded-2xl border border-white/10 bg-[#0e1420] px-4 py-3 shadow-[0_16px_48px_rgba(0,0,0,0.18)] sm:w-[320px]">
-              <FaSearch className="text-slate-500" />
+              <FaMagnifyingGlass className="text-slate-500" />
               <input
                 type="text"
                 value={searchTerm}
@@ -381,7 +381,7 @@ const BorrowDashboard = () => {
               onClick={() => setSelectedBook(null)}
               className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition hover:bg-white/10 hover:text-white"
             >
-              <FaTimes />
+              <FaXmark />
             </button>
 
             <div className={`h-56 bg-gradient-to-br ${getTheme(selectedBook)}`}>
