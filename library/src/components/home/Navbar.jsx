@@ -177,7 +177,7 @@ const Navbar = () => {
         <button
           onClick={() => {
             logout();
-            navigate("/");
+            navigate("/", { replace: true });
           }}
           className="flex w-full items-center justify-center gap-2 rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-300 transition hover:bg-red-500/20 hover:text-red-200"
         >

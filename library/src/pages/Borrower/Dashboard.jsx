@@ -49,7 +49,7 @@ const BorrowDashboard = () => {
 
   useEffect(() => {
     if (!getAuthToken()) {
-      navigate("/login");
+      navigate("/");
     }
   }, [navigate, user]);
 
